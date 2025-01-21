@@ -124,12 +124,12 @@ class _ScannerNfcDetailsPageState extends State<ScannerNfcDetailsPage> {
       headers: {"Authorization": globals.api_key},
       // body: body,
     );
-    print(response.body);
+
     // const ListAPIUrl = 'https://keyreg.arfidex.de/getAllObjects';
     // final response = await http.get(Uri.parse(ListAPIUrl));
     if (response.statusCode == 200) {
       String receivedJson = response.body;
-      print(receivedJson);
+
       if (receivedJson != '()') {
         List<dynamic> list = json.decode(receivedJson);
         return list.map((item) => Item.fromJson(item)).toList();
@@ -144,7 +144,7 @@ class _ScannerNfcDetailsPageState extends State<ScannerNfcDetailsPage> {
   takeKey() async {
     Map data = {'KeyID': widget.scannedTag};
     String body = json.encode(data);
-    print(body);
+
     http.Response response = await http.post(
       Uri.parse('https://keyreg.arfidex.de/giveKeyToUser'),
       headers: {
@@ -163,7 +163,6 @@ class _ScannerNfcDetailsPageState extends State<ScannerNfcDetailsPage> {
   }
 
   ListView _jobsListView(data) {
-    print(data[0].number);
     return ListView.builder(
       itemCount: data.length,
       itemBuilder: (context, index) {
@@ -250,7 +249,6 @@ class _ScannerNfcDetailsPageState extends State<ScannerNfcDetailsPage> {
 
     if (response.statusCode == 200) {
       String receivedJson = response.body;
-      print(receivedJson);
     } else {
       throw Exception('Failed to load jobs from API');
     }
@@ -261,7 +259,7 @@ class _ScannerNfcDetailsPageState extends State<ScannerNfcDetailsPage> {
 
     Map data = {'KeyID': scannedTag};
     String body = json.encode(data);
-    print(body);
+
     http.Response response = await http.post(
       Uri.parse('https://keyreg.arfidex.de/returnKey'),
       headers: {
@@ -285,7 +283,7 @@ class _ScannerNfcDetailsPageState extends State<ScannerNfcDetailsPage> {
     }
 
     var tag = await FlutterNfcKit.poll(timeout: const Duration(seconds: 10));
-    print(tag.id);
+
     if (tag.id == scannedTag) {
       _updateExaminationDate(tag.id);
       if (Platform.isIOS) {
@@ -333,11 +331,7 @@ class _ScannerNfcDetailsPageState extends State<ScannerNfcDetailsPage> {
       headers: {"Authorization": globals.api_key},
     );
 
-    print(response.body.split(" ")[3]);
-
     var version = response.body.split(" ")[3].replaceAll("}", "");
-
-    print(version);
 
     if (response.statusCode == 200) {
       globals.checkIntervall = version as int;

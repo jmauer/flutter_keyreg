@@ -106,7 +106,6 @@ class _ScannerState extends State<Scanner> {
 
     var tag = await FlutterNfcKit.poll(timeout: const Duration(seconds: 10));
 
-    print(tag.id);
     if (tag.id != "") {
       _fetchTag(tag.id);
     } else {
@@ -131,7 +130,7 @@ class _ScannerState extends State<Scanner> {
     }
 
     var tag = await FlutterNfcKit.poll(timeout: const Duration(seconds: 10));
-    print(tag.id);
+
     if (tag.id != "") {
       Navigator.of(context).push(
         MaterialPageRoute(
@@ -184,7 +183,7 @@ class _ScannerState extends State<Scanner> {
     );
     if (response.statusCode == 200) {
       String receivedJson = response.body;
-      print(receivedJson);
+
       if (receivedJson.contains("k.ID")) {
         Navigator.of(context).push(
           MaterialPageRoute(

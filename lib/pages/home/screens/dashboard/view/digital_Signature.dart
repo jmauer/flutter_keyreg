@@ -1,7 +1,7 @@
 import 'dart:io';
 import 'package:flutter/services.dart';
 import 'package:intl/intl.dart';
-import 'package:kontrolle_keyreg/pages/home/localization/app_localizations.dart';
+import 'package:kontrolle_keyreg/localization/app_localizations.dart';
 import 'package:pdf/pdf.dart';
 import 'package:pdf/widgets.dart' as pw;
 import 'dart:typed_data';

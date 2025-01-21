@@ -123,11 +123,10 @@ class _NfcDetailsPageState extends State<NfcSuccessPage> {
       if (receivedJson == "()") {
         String emptyJson =
             "[{\"ID\": ${widget.scannedTag}, \"Category\": $placeholder, \"Description\": $placeholder, \"Groups\": $placeholder, \"ExaminationDate\": $placeholder}]";
-        print(emptyJson);
+
         List<dynamic> emptyList = json.decode(emptyJson);
         return emptyList.map((item) => Item.fromJson(item)).toList();
       } else {
-        print(receivedJson);
         List<dynamic> list = json.decode(receivedJson);
         return list.map((item) => Item.fromJson(item)).toList();
       }
@@ -184,7 +183,6 @@ class _NfcDetailsPageState extends State<NfcSuccessPage> {
     );
     if (response.statusCode == 200) {
       String receivedJson = response.body;
-      print(receivedJson);
     } else {
       throw Exception('Failed to load jobs from API');
     }
@@ -196,13 +194,9 @@ class _NfcDetailsPageState extends State<NfcSuccessPage> {
 
     NFCTag tag = await FlutterNfcKit.poll(iosAlertMessage: 'Reading');
 
-    print(jsonEncode(tag));
-
     if (tag.ndefAvailable == true) {
       for (var record in await FlutterNfcKit.readNDEFRecords(cached: false)) {
-        print(record.toString());
         List<String> scannedTagPayload = record.toString().split("text=");
-        print(scannedTagPayload[1]);
       }
     }
     FlutterNfcKit.finish();

@@ -1,4 +1,4 @@
-import 'package:kontrolle_keyreg/pages/home/localization/app_localizations.dart';
+import 'package:kontrolle_keyreg/localization/app_localizations.dart';
 import 'package:kontrolle_keyreg/pages/home/screens/home_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
@@ -62,40 +62,25 @@ class _LoginScreenState extends State<LoginScreen> {
             mainAxisAlignment: MainAxisAlignment.center,
             crossAxisAlignment: CrossAxisAlignment.center,
             children: <Widget>[
-              //to give space from top
               const Expanded(flex: 1, child: Center()),
 
-              //logo and text section
               Expanded(
                 flex: 2,
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: <Widget>[
-                    // logo(size.height / 8, size.height / 8),
-                    // const SizedBox(
-                    //   height: 11,
-                    // ),
                     richText(24),
                     const SizedBox(
                       height: 15,
                     ),
-                    // Text(
-                    //   'Mit E-Mail Adresse einloggen um fortzufahren',
-                    //   style: GoogleFonts.inter(
-                    //     fontSize: 14.0,
-                    //     color: const Color(0xFF969AA8),
-                    //   ),
-                    // ),
                   ],
                 ),
               ),
 
-              //email and password textField section
               Expanded(
                 flex: 5,
                 child: Column(
                   children: [
-                    //email textField
                     Column(
                       mainAxisAlignment: MainAxisAlignment.start,
                       crossAxisAlignment: CrossAxisAlignment.start,
@@ -119,7 +104,6 @@ class _LoginScreenState extends State<LoginScreen> {
                       height: 6,
                     ),
 
-                    //password textField
                     Column(
                       mainAxisAlignment: MainAxisAlignment.start,
                       crossAxisAlignment: CrossAxisAlignment.start,
@@ -468,7 +452,7 @@ class _LoginScreenState extends State<LoginScreen> {
     Map data = {'EMail': username, 'Password': password, 'DeviceID': "null"};
 
     String body = json.encode(data);
-    print(body);
+
     http.Response response = await http.post(
       Uri.parse('https://keyreg.arfidex.de/authentication'),
       headers: {"Content-Type": "application/json"},
@@ -479,7 +463,6 @@ class _LoginScreenState extends State<LoginScreen> {
       showError("Bitte gültige Login Daten eingeben");
     } else if (response.statusCode == 200) {
       String receivedJson = response.body;
-      print(receivedJson);
 
       // Parse the JSON response
       Map<String, dynamic> jsonData = json.decode(receivedJson);

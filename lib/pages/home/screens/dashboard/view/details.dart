@@ -4,7 +4,7 @@ import 'dart:io';
 import 'package:flutter_custom_cards/flutter_custom_cards.dart';
 import 'package:flutter_nfc_kit/flutter_nfc_kit.dart';
 import 'package:intl/intl.dart';
-import 'package:kontrolle_keyreg/pages/home/localization/app_localizations.dart';
+import 'package:kontrolle_keyreg/localization/app_localizations.dart';
 import 'package:kontrolle_keyreg/pages/home/screens/dashboard/dashboard.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
@@ -173,14 +173,10 @@ class _NfcDetailsPageState extends State<NfcDetailsPage> {
     http.Response response = await http.get(
       Uri.parse('https://keyreg.arfidex.de/getID/${widget.scannedTag}'),
       headers: {"Authorization": globals.api_key},
-      // body: body,
     );
-    print(response.body);
-    // const ListAPIUrl = 'https://keyreg.arfidex.de/getAllObjects';
-    // final response = await http.get(Uri.parse(ListAPIUrl));
     if (response.statusCode == 200) {
       String receivedJson = response.body;
-      print(receivedJson);
+
       if (receivedJson != '()') {
         List<dynamic> list = json.decode(receivedJson);
         return list.map((item) => Item.fromJson(item)).toList();
@@ -195,7 +191,7 @@ class _NfcDetailsPageState extends State<NfcDetailsPage> {
   takeKey() async {
     Map data = {'KeyID': widget.scannedTag};
     String body = json.encode(data);
-    print(body);
+
     http.Response response = await http.post(
       Uri.parse('https://keyreg.arfidex.de/giveKeyToUser'),
       headers: {
@@ -214,7 +210,6 @@ class _NfcDetailsPageState extends State<NfcDetailsPage> {
   }
 
   ListView _jobsListView(data) {
-    print(data[0].number);
     return ListView.builder(
       itemCount: data.length,
       itemBuilder: (context, index) {
@@ -304,7 +299,6 @@ class _NfcDetailsPageState extends State<NfcDetailsPage> {
 
     if (response.statusCode == 200) {
       String receivedJson = response.body;
-      print(receivedJson);
     } else {
       throw Exception('Failed to load jobs from API');
     }
@@ -315,7 +309,7 @@ class _NfcDetailsPageState extends State<NfcDetailsPage> {
 
     Map data = {'KeyID': scannedTag};
     String body = json.encode(data);
-    print(body);
+
     http.Response response = await http.post(
       Uri.parse('https://keyreg.arfidex.de/returnKey'),
       headers: {
@@ -339,7 +333,7 @@ class _NfcDetailsPageState extends State<NfcDetailsPage> {
     }
 
     var tag = await FlutterNfcKit.poll(timeout: const Duration(seconds: 10));
-    print(tag.id);
+
     if (tag.id == scannedTag) {
       _updateExaminationDate(tag.id);
       if (Platform.isIOS) {
@@ -388,11 +382,7 @@ class _NfcDetailsPageState extends State<NfcDetailsPage> {
       headers: {"Authorization": globals.api_key},
     );
 
-    print(response.body.split(" ")[3]);
-
     var version = response.body.split(" ")[3].replaceAll("}", "");
-
-    print(version);
 
     if (response.statusCode == 200) {
       globals.checkIntervall = version as int;

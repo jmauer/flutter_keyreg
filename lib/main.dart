@@ -1,10 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:kontrolle_keyreg/pages/splash/splash.dart';
-
-import 'package:kontrolle_keyreg/repositories/firebase_api.dart';
-import 'firebase_options.dart';
-import 'pages/home/localization/app_localizations.dart';
+import 'localization/app_localizations.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();

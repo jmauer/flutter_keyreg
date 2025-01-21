@@ -6,7 +6,7 @@ import 'package:flutter_custom_cards/flutter_custom_cards.dart';
 import 'package:flutter_nfc_kit/flutter_nfc_kit.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
-import 'package:kontrolle_keyreg/pages/home/localization/app_localizations.dart';
+import 'package:kontrolle_keyreg/localization/app_localizations.dart';
 import 'package:kontrolle_keyreg/pages/home/screens/dashboard/view/digital_Signature.dart';
 import 'package:kontrolle_keyreg/pages/home/screens/dashboard/view/keychain_details.dart';
 import 'package:pull_down_button/pull_down_button.dart';
@@ -164,7 +164,6 @@ class _DashboardState extends State<Dashboard> {
       'EMail': getUsername,
     };
     String body = json.encode(data);
-    print(body);
     http.Response response = await http.post(
       Uri.parse('https://keyreg.arfidex.de/getCurrentKeysFromUser'),
       headers: {
@@ -174,14 +173,10 @@ class _DashboardState extends State<Dashboard> {
       },
       body: body,
     );
-    print(response.statusCode);
     if (response.statusCode == 200) {
       String receivedJson = response.body;
-      // print(receivedJson);
       if (receivedJson.isNotEmpty) {
         final List<dynamic> jsonArray = json.decode(receivedJson);
-        print("🥦");
-        print(jsonArray);
         final List<Item> items =
             jsonArray.map((json) => Item.fromJson(json)).toList();
         return items;
@@ -199,7 +194,7 @@ class _DashboardState extends State<Dashboard> {
       'EMail': getUsername,
     };
     String body = json.encode(data);
-    print(body);
+
     http.Response response = await http.post(
       Uri.parse('https://keyreg.arfidex.de/getCurrentKeychainsFromUser'),
       headers: {
@@ -209,13 +204,12 @@ class _DashboardState extends State<Dashboard> {
       },
       body: body,
     );
-    print(response.statusCode);
+
     if (response.statusCode == 200) {
       String receivedJson = response.body;
-      // print(receivedJson);
+
       if (receivedJson.isNotEmpty) {
         final List<dynamic> jsonArray = json.decode(receivedJson);
-        print("🍊");
 
         final List<Item> keychains =
             jsonArray.map((json) => Item.fromJson(json)).toList();
@@ -465,7 +459,7 @@ class _DashboardState extends State<Dashboard> {
     }
 
     var tag = await FlutterNfcKit.poll(timeout: const Duration(seconds: 10));
-    print(tag.id);
+
     if (tag.id == scannedTag) {
       _updateExaminationDate(tag.id);
       if (Platform.isIOS) {
@@ -491,7 +485,7 @@ class _DashboardState extends State<Dashboard> {
     }
 
     var tag = await FlutterNfcKit.poll(timeout: const Duration(seconds: 10));
-    print(tag.id);
+
     if (tag.id == scannedTag) {
       _returnKeychain(tag.id);
       if (Platform.isIOS) {
@@ -515,7 +509,7 @@ class _DashboardState extends State<Dashboard> {
 
     Map data = {'KeyID': scannedTag};
     String body = json.encode(data);
-    print(body);
+
     http.Response response = await http.post(
       Uri.parse('https://keyreg.arfidex.de/returnKey'),
       headers: {
@@ -538,7 +532,7 @@ class _DashboardState extends State<Dashboard> {
 
     Map data = {'KeychainID': scannedTag};
     String body = json.encode(data);
-    print(body);
+
     http.Response response = await http.post(
       Uri.parse('https://keyreg.arfidex.de/returnKeychain'),
       headers: {
@@ -586,11 +580,7 @@ class _DashboardState extends State<Dashboard> {
       headers: {"Authorization": globals.api_key},
     );
 
-    print(response.body.split(" ")[3]);
-
     var version = response.body.split(" ")[3].replaceAll("}", "");
-
-    print(version);
 
     if (response.statusCode == 200) {
       globals.checkIntervall = version as int;

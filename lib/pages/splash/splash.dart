@@ -6,7 +6,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:kontrolle_keyreg/pages/home/screens/home_screen.dart';
 import 'package:kontrolle_keyreg/pages/login/screens/login.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import '../home/localization/app_localizations.dart';
+import '../../localization/app_localizations.dart';
 
 class SplashScreen extends StatefulWidget {
   const SplashScreen({Key? key}) : super(key: key);

@@ -1,4 +1,4 @@
-import 'package:kontrolle_keyreg/pages/home/localization/app_localizations.dart';
+import 'package:kontrolle_keyreg/localization/app_localizations.dart';
 import 'package:kontrolle_keyreg/pages/home/screens/dashboard/view/dashboard.dart';
 import 'package:flutter/material.dart';
 

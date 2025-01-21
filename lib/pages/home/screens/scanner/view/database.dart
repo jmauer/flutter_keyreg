@@ -54,7 +54,7 @@ class _ListPageState extends State<ListPage> {
     );
     if (response.statusCode == 200) {
       String receivedJson = response.body;
-      print(receivedJson);
+
       if (receivedJson != '()') {
         List<dynamic> list = json.decode(receivedJson);
         return list.map((item) => Item.fromJson(item)).toList();

@@ -99,22 +99,17 @@ class _PDFScreenState extends State<PDFScreen> with WidgetsBindingObserver {
               setState(() {
                 errorMessage = error.toString();
               });
-              print(error.toString());
             },
             onPageError: (page, error) {
               setState(() {
                 errorMessage = '$page: ${error.toString()}';
               });
-              print('$page: ${error.toString()}');
             },
             onViewCreated: (PDFViewController pdfViewController) {
               _controller.complete(pdfViewController);
             },
-            onLinkHandler: (String? uri) {
-              print('goto uri: $uri');
-            },
+            onLinkHandler: (String? uri) {},
             onPageChanged: (int? page, int? total) {
-              print('page change: $page/$total');
               setState(() {
                 currentPage = page;
               });
@@ -137,9 +132,7 @@ class _PDFScreenState extends State<PDFScreen> with WidgetsBindingObserver {
   share() async {
     final result = await Share.shareXFiles([XFile(widget.path!)]);
 
-    if (result.status == ShareResultStatus.dismissed) {
-      print('Did you not like the pictures?');
-    }
+    if (result.status == ShareResultStatus.dismissed) {}
   }
 
   Future<void> updloadPdf() async {

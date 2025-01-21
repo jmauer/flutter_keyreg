@@ -4,7 +4,7 @@ import 'dart:io';
 import 'package:flutter_custom_cards/flutter_custom_cards.dart';
 import 'package:flutter_nfc_kit/flutter_nfc_kit.dart';
 import 'package:intl/intl.dart';
-import 'package:kontrolle_keyreg/pages/home/localization/app_localizations.dart';
+import 'package:kontrolle_keyreg/localization/app_localizations.dart';
 import 'package:kontrolle_keyreg/pages/home/screens/dashboard/dashboard.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
@@ -214,7 +214,6 @@ class _KeychainDetailsPageState extends State<KeychainDetailsPage> {
   takeKey() async {
     Map data = {'KeychainID': widget.scannedTag};
     String body = json.encode(data);
-    print(body);
     http.Response response = await http.post(
       Uri.parse('https://keyreg.arfidex.de/giveKeychainToUser'),
       headers: {
@@ -238,7 +237,7 @@ class _KeychainDetailsPageState extends State<KeychainDetailsPage> {
       'KeychainID': widget.scannedTag,
     };
     String body = json.encode(data);
-    print(body);
+
     http.Response response = await http.post(
       Uri.parse('https://keyreg.arfidex.de/getAllKeysFromKeychain'),
       headers: {
@@ -248,17 +247,14 @@ class _KeychainDetailsPageState extends State<KeychainDetailsPage> {
       },
       body: body,
     );
-    print(response.statusCode);
+
     if (response.statusCode == 200) {
       String receivedJson = response.body;
-      // print(receivedJson);
+
       if (receivedJson.isNotEmpty) {
         final List<dynamic> jsonArray = json.decode(receivedJson);
-        print("🍅");
-        print(jsonArray);
         final List<Item> items =
             jsonArray.map((json) => Item.fromJson(json)).toList();
-        print(items[0].keyNumber);
         return items;
       } else {
         return List.empty();
@@ -299,23 +295,16 @@ class _KeychainDetailsPageState extends State<KeychainDetailsPage> {
       ));
 
   Future<List<Item>> _fetchTag() async {
-    // Map data = {'KeychainID': widget.scannedTag};
-    // String body = json.encode(data);
-    // print(body);
     http.Response response = await http.get(
       Uri.parse('https://keyreg.arfidex.de/getKeychainID/${widget.scannedTag}'),
       headers: {
         "Authorization": globals.api_key,
         "Content-Type": "application/json"
       },
-      // body: body,
     );
-    print(response.body);
-    // const ListAPIUrl = 'https://keyreg.arfidex.de/getAllObjects';
-    // final response = await http.get(Uri.parse(ListAPIUrl));
     if (response.statusCode == 200) {
       String receivedJson = response.body;
-      print(receivedJson);
+
       if (receivedJson != '()') {
         List<dynamic> list = json.decode(receivedJson);
         return list.map((item) => Item.fromJson(item)).toList();
@@ -380,8 +369,6 @@ class _KeychainDetailsPageState extends State<KeychainDetailsPage> {
     );
 
     if (response.statusCode == 200) {
-      String receivedJson = response.body;
-      print(receivedJson);
     } else {
       throw Exception('Failed to load jobs from API');
     }
@@ -394,7 +381,7 @@ class _KeychainDetailsPageState extends State<KeychainDetailsPage> {
       'KeychainID': scannedTag,
     };
     String body = json.encode(data);
-    print(body);
+
     http.Response response = await http.post(
       Uri.parse('https://keyreg.arfidex.de/returnKeychain'),
       headers: {
@@ -418,7 +405,7 @@ class _KeychainDetailsPageState extends State<KeychainDetailsPage> {
     }
 
     var tag = await FlutterNfcKit.poll(timeout: const Duration(seconds: 10));
-    print(tag.id);
+
     if (tag.id == scannedTag) {
       _updateExaminationDate(tag.id);
       if (Platform.isIOS) {
@@ -467,11 +454,7 @@ class _KeychainDetailsPageState extends State<KeychainDetailsPage> {
       headers: {"Authorization": globals.api_key},
     );
 
-    print(response.body.split(" ")[3]);
-
     var version = response.body.split(" ")[3].replaceAll("}", "");
-
-    print(version);
 
     if (response.statusCode == 200) {
       globals.checkIntervall = version as int;
