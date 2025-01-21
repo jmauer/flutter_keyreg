@@ -1,0 +1,8 @@
+app_identifier("de.arfidex.keyreg") # The bundle identifier of your app
+apple_id("jm998@live.de") # Your Apple Developer Portal username
+
+itc_team_id("126711783") # App Store Connect Team ID
+team_id("G9H8MUH48P") # Developer Portal Team ID
+
+# For more information about the Appfile, see:
+#     https://docs.fastlane.tools/advanced/#appfile

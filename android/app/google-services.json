@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "593348374652",
+    "project_id": "keyreg-971d0",
+    "storage_bucket": "keyreg-971d0.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:593348374652:android:173a12d54a178715f1d9f9",
+        "android_client_info": {
+          "package_name": "de.arfidex.kontrolle_schlussel"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCgrF199dy9gLB2iLLH_HfgZ2-zPKTgHlY"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

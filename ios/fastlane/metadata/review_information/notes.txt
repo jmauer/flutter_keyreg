@@ -1,0 +1,1 @@
+Anmelden und gewünschte Objekte durch den Scan des passenden NFC Tags kontrollieren
